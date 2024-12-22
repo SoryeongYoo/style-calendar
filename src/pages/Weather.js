@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 const Weather = () => {
   const [weather, setWeather] = useState(null)
@@ -92,7 +93,7 @@ const Weather = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div>
+    <Main>
       <h1>Today's Weather</h1>
       <div>
         <p>온도 {weather.main.temp}°C</p>
@@ -103,8 +104,13 @@ const Weather = () => {
             alt="weather-icon"
         />
       </div>
-    </div>
+    </Main>
   )
 }
 
 export default Weather
+
+const Main= styled.div`
+  border: 2px solid black;
+`
+
