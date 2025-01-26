@@ -14,17 +14,18 @@ const Home = () => {
           <StyledLink to="/login">login/join</StyledLink>
         </Button>
         <Description>Plan Your Outfits Effortlessly !</Description>
-        <HeaderLine></HeaderLine>
       </HomeHeader>
 
       {/* BODY */}
       <HomeBody>
-        
         {/* 로그인 전 날씨 api */}
         <Weather></Weather>
-
       </HomeBody>
 
+      {/* FOOTER
+      <HomeFooter>
+
+      </HomeFooter> */}
     </HomeContainer>
   )
 }
@@ -38,26 +39,32 @@ const HomeContainer = styled.body`
 /*HEADER*/
 const HomeHeader = styled.header` 
   position: relative;
+  width: 1200px;
+  height: 87px;
+  left:50%;
+  transform: translate(-50%);
+  margin-top: 49px;
+  border-bottom: 2px solid #3a3a3a;
 `
 
 const Title = styled(Link)`
   font-family:'Jacques Francois', sans-serif;
-  font-size: 2em;
-  font-weight:bold;
+  font-size: 40px;
+  width: 271px;
+  height: 53px;
   text-decoration: none;
   color:#3a3a3a;
   position: absolute; 
   left:50%;
-  top: 40px;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%);
 `
 
 const Button = styled.div`
   position: absolute;
   font-size: 16px;
-  left:85%;
+  left:1110px;
+  top: 53px;
   margin: 0;
-  padding: 30px;
 `
 
 const StyledLink = styled(Link)`
@@ -73,24 +80,25 @@ const StyledLink = styled(Link)`
 const Description = styled.p`
   font-family: 'Jacques Francois', sans-serif;
   color: #3a3a3a;
-  font-size: 14px;
+  font-size: 16px;
   position:absolute;
   left:50%;
-  top: 70px;
+  top:53px;
   transform: translate(-50%);
   margin:0;
 `
 
-const HeaderLine=styled.div`
+// BODY 
+const HomeBody = styled.div`
+
+`
+// FOOTER
+const HomeFooter = styled.div`
   position:absolute;
-  border: 1px solid;
-  width: 1300px;
-  color: #3a3a3a;
+  border-top: 1px solid #3a3a3a;
+  width: 1200px;
+  height: 21px;
   left: 50%;
   top: 100px;
   transform:translate(-50%);
-`
-
-const HomeBody = styled.div`
-
 `
