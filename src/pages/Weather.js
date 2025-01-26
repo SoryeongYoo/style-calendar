@@ -54,29 +54,29 @@ const Weather = () => {
     }
 
     //날씨에 맞는 옷 추천
-    const generateClothingSuggestion=(data)=>{
-      const temp =data.main.temp //현재 온도
+    const generateClothingSuggestion = (data) => {
+      const temp = data.main.temp //현재 온도
       const weatherCondition = data.weather[0].main.toLowerCase() //날씨 상태 문자 반환
 
       let suggestion = ''
-      let clothSuggestion= ''
+      let clothSuggestion = ''
 
-      if (temp>25){
-        suggestion='오늘은 가벼운 옷 어떨까요?'
+      if (temp > 25) {
+        suggestion = '오늘은 가벼운 옷 어떨까요?'
         //---추천 옷 img 랜덤 추가---//
-      }else if(temp>=15){
-        suggestion='오늘은 가벼운 아우터를 걸치는게 좋겠어요!'
+      } else if (temp >= 15) {
+        suggestion = '오늘은 가벼운 아우터를 걸치는게 좋겠어요!'
         //---추천 옷 img 랜덤 추가---//
-      }else if(temp>=5){
-        suggestion='감기 걸리지 않게 따뜻하게 입고 가세요!'
+      } else if (temp >= 5) {
+        suggestion = '감기 걸리지 않게 따뜻하게 입고 가세요!'
         //---추천 옷 img 랜덤 추가---//
-      }else{
-        suggestion='준비 단단히 하고 나가시는게 좋겠어요! 장갑, 목도리 챙기세요!'
+      } else {
+        suggestion = '준비 단단히 하고 나가시는게 좋겠어요! 장갑, 목도리 챙기세요!'
         //---추천 옷 img 랜덤 추가---//
       }
-      
-      if(weatherCondition.includes('rain') || weatherCondition.includes('snow')){
-        suggestion+='장화, 우산 잊지 마세요!'
+
+      if (weatherCondition.includes('rain') || weatherCondition.includes('snow')) {
+        suggestion += '장화, 우산 잊지 마세요!'
         //---장화 등등 img 랜덤 추가---//
       }
 
@@ -94,23 +94,39 @@ const Weather = () => {
 
   return (
     <Main>
-      <h1>Today's Weather</h1>
-      <div>
+      <Title></Title>
+      <Content>
         <p>온도 {weather.main.temp}°C</p>
         <p>날씨 {weather.weather[0].description}</p>
         <p>바람 세기 {weather.wind.speed} m/s</p>
         <img
-            src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-            alt="weather-icon"
+          src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+          alt="weather-icon"
+          width={50}
         />
-      </div>
+      </Content>
     </Main>
   )
 }
 
 export default Weather
 
-const Main= styled.div`
-  border: 2px solid black;
+const Main = styled.div`
+  height: 500px;
+  margin:20px;
+  padding:20px;
 `
 
+const Title = styled.h1`
+  text-align:center;
+  margin:0;
+`
+
+const Content = styled.div`
+   display:flex;
+   gap:20px;
+   width:auto;
+   height:auto;
+   justify-content:center;
+   align-items:center;
+`
