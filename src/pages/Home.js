@@ -2,38 +2,28 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import Weather from './Weather';
 import { styled } from 'styled-components';
-/* FONT */
-// import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-// import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200..900&display=swap');
-
-// .home_header .wrap h1 {
-//   font-family: "Source Code Pro", serif;
-// }
-
-// .home_header p {
-//   font-family: "Indie Flower", serif;
-// }
 
 const Home = () => {
   return (
     <HomeContainer>
       {/* HEADER */}
       <HomeHeader>
-
-        <Title>Style Calendar</Title>
-
+        <Title to="/">Style Calendar</Title>
         {/* Button */}
         <Button>
-          <StyledLink to="/login">Login</StyledLink>
-          <StyledLink to="/join">Join</StyledLink>
+          <StyledLink to="/login">login/join</StyledLink>
         </Button>
-
+        <Description>Plan Your Outfits Effortlessly !</Description>
+        <HeaderLine></HeaderLine>
       </HomeHeader>
 
-      <Description>Plan Your Outfits Effortlessly !</Description>
+      {/* BODY */}
+      <HomeBody>
+        
+        {/* 로그인 전 날씨 api */}
+        <Weather></Weather>
 
-      {/* 로그인 전 날씨 api */}
-      <Weather></Weather>
+      </HomeBody>
 
     </HomeContainer>
   )
@@ -42,31 +32,38 @@ const Home = () => {
 export default Home
 
 const HomeContainer = styled.body`
-  background-color: #cfcfc1;
+  background-image: url('/images/homebackground.jpg');
 `
 
-const HomeHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/*HEADER*/
+const HomeHeader = styled.header` 
+  position: relative;
 `
 
-const Title = styled.h1`
-  flex-grow: 1;
-  text-align: center;
-  margin-bottom:1px;
+const Title = styled(Link)`
+  font-family:'Jacques Francois', sans-serif;
+  font-size: 2em;
+  font-weight:bold;
+  text-decoration: none;
+  color:#3a3a3a;
+  position: absolute; 
+  left:50%;
+  top: 40px;
+  transform: translate(-50%,-50%);
 `
 
 const Button = styled.div`
-  display:flex;
-  gap:10px
+  position: absolute;
+  font-size: 16px;
+  left:85%;
+  margin: 0;
+  padding: 30px;
 `
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color:black;
-  margin: 20px;
-  margin-bottom:1px;
+  color:#3a3a3a;
+  font-family:'Jacques Francois', sans-serif;
 
   &:hover{
     text-decoration: underline;
@@ -74,6 +71,26 @@ const StyledLink = styled(Link)`
 `
 
 const Description = styled.p`
-  text-align:center;
-  margin-top: 1px;
+  font-family: 'Jacques Francois', sans-serif;
+  color: #3a3a3a;
+  font-size: 14px;
+  position:absolute;
+  left:50%;
+  top: 70px;
+  transform: translate(-50%);
+  margin:0;
+`
+
+const HeaderLine=styled.div`
+  position:absolute;
+  border: 1px solid;
+  width: 1300px;
+  color: #3a3a3a;
+  left: 50%;
+  top: 100px;
+  transform:translate(-50%);
+`
+
+const HomeBody = styled.div`
+
 `
