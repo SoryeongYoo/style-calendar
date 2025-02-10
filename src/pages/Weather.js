@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 const Weather = () => {
   const [weather, setWeather] = useState(null)
@@ -87,11 +87,25 @@ const Weather = () => {
     getLocation()
   }, [])
 
+
+  const letters = "LOADING...".split("");
+  const totalLetters = letters.length;
+
   //로딩 중일 때 처리
-  if (loading) return <p>Loading...</p>;
+  if (loading) return (
+    <LoadingContainer>
+      <LoadingText>
+        {letters.map((letter, index) => (
+          <Span key={index} style={{ transform: `rotate(${(360 / totalLetters) * index}deg)` }}>
+            {letter}
+          </Span>
+        ))}
+      </LoadingText>
+    </LoadingContainer>
+  )
+
   //api 값을 정상적으로 받아오지 못했을 때 
   if (error) return <p>Error: {error}</p>;
-
   return (
     <Main>
       <Title></Title>
@@ -99,11 +113,6 @@ const Weather = () => {
         <p>온도 {weather.main.temp}°C</p>
         <p>날씨 {weather.weather[0].description}</p>
         <p>바람 세기 {weather.wind.speed} m/s</p>
-        <img
-          src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-          alt="weather-icon"
-          width={50}
-        />
       </Content>
     </Main>
   )
@@ -123,10 +132,49 @@ const Title = styled.h1`
 `
 
 const Content = styled.div`
-   display:flex;
-   gap:20px;
-   width:auto;
-   height:auto;
-   justify-content:center;
-   align-items:center;
+   font-family:'Aboreto', sans-serif;
+   display: flex;
+   gap: 20px;
+   width: auto;
+   height: auto;
+   justify-content: center;
+   align-items: center;
+`
+
+/*LOADING*/
+const LoadingContainer = styled.div`
+  position: relative;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
+const rotateText = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }      
+`
+
+const LoadingText = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3a3a3a;
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: right;
+  animation: ${rotateText} 4s linear infinite;
+`
+
+const Span = styled.span`
+  position: absolute;
+  transform-origin: center 50px; /* 중심에서 떨어진 지점 기준 */
 `
