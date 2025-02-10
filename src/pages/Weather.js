@@ -108,10 +108,10 @@ const Weather = () => {
   if (error) return <p>Error: {error}</p>;
   return (
     <Main>
-      <Title></Title>
+      <Title>Today's<br />Weather</Title>
       <Content>
         <p>온도 {weather.main.temp}°C</p>
-        <p>날씨 {weather.weather[0].description}</p>
+        <p>날씨 {weather.weather[0].main}</p>
         <p>바람 세기 {weather.wind.speed} m/s</p>
       </Content>
     </Main>
@@ -121,14 +121,19 @@ const Weather = () => {
 export default Weather
 
 const Main = styled.div`
-  height: 500px;
-  margin:20px;
-  padding:20px;
+  position: absolute;
+  width:461px;
+  height:303px;
+  top: 71px;
 `
 
-const Title = styled.h1`
+const Title = styled.div`
+  font-family:'Aboreto', sans-serif;
+  font-size: 24px;
   text-align:center;
-  margin:0;
+  position:absolute;
+  top: 29px;
+  left: 170px;
 `
 
 const Content = styled.div`
