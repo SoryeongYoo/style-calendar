@@ -1,26 +1,41 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
+import { createGlobalStyle, styled } from 'styled-components';
 import Calendar from 'react-calendar';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebaseConfig.js';
 
 const CalendarPage = () => {
   const [date, setDate] = useState(new Date());
   const navigate = useNavigate(); //페이지 이동
 
   const handleDateChange = (selectedDate) => {
+    if (!selectedDate) {
+      console.log("x");
+      return;
+    }
     setDate(selectedDate);
-    const formattedDate = selectedDate.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 변환
+    const formattedDate = selectedDate.toLocaleDateString(); // YYYY-MM-DD 형식으로 변환
     navigate(`/calendar/${formattedDate}`); // 해당 날짜의 상세 페이지로 이동
   };
 
+  const handleLogout = async ()=>{
+    await signOut(auth)
+    alert("로그아웃 되었습니다.")
+    navigate('/')
+  }
+
+
   return (
     <HomeContainer>
+      <GlobalStyle />
       {/* HEADER */}
       <HomeHeader>
-        <Title to="/">Style Calendar</Title>
+        <Title to="/calendar">Style Calendar</Title>
         {/* Button */}
         <Button>
           <StyledLink to="/Mypage">mypage</StyledLink>
+          <StyledLink onClick={handleLogout}>logout</StyledLink>
         </Button>
         <Description>Plan Your Outfits Effortlessly !</Description>
       </HomeHeader>
@@ -30,7 +45,6 @@ const CalendarPage = () => {
         <CalendarContainer>
           <StyledCalendar onChange={handleDateChange} value={date} />
           <SelectedDateContainer>
-            <SelectedDateText>{date.toDateString()}</SelectedDateText>
           </SelectedDateContainer>
         </CalendarContainer>
       </HomeBody>
@@ -45,9 +59,15 @@ const CalendarPage = () => {
 
 export default CalendarPage
 
-const HomeContainer = styled.body`
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-image: url('/images/homebackground.jpg');
+  }
+`
+
+const HomeContainer = styled.div`
   position:relative;
-  background-image: url('/images/homebackground.jpg');
+  
 `
 
 /*HEADER*/
@@ -76,9 +96,15 @@ const Title = styled(Link)`
 const Button = styled.div`
   position: absolute;
   font-size: 16px;
-  left:1110px;
-  top: 53px;
+  width: 1200px;
+  padding: 0 20px 10px 20px;
+  box-sizing: border-box;
   margin: 0;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: right;
+  bottom: 0;
 `
 
 const StyledLink = styled(Link)`
@@ -92,14 +118,18 @@ const StyledLink = styled(Link)`
 `
 
 const Description = styled.p`
+  position:absolute;
   font-family: 'Jacques Francois', sans-serif;
   color: #3a3a3a;
   font-size: 16px;
-  position:absolute;
+  box-sizing: border-box;
   left:50%;
-  top:53px;
   transform: translate(-50%);
+  padding: 0 0 10px 0;
+  display: flex;
+  justify-content: center;
   margin:0;
+  bottom: 0;
 `
 
 /*BODY*/
@@ -119,6 +149,12 @@ const CalendarContainer = styled.div`
 `
 
 const StyledCalendar = styled(Calendar)`
+  @font-face {
+      font-family: 'PeoplefirstILTTF';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2501-1@1.1/PeoplefirstILTTF.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+  }
   max-width: 1500px;
   margin: 20px auto;
   border: none;
@@ -130,24 +166,48 @@ const StyledCalendar = styled(Calendar)`
     height: 150px;
     display: flex;
     justify-content: left;
+    background: transparent;
 
     &:hover {
       background:rgb(163, 205, 148);
+      cursor: pointer;
+    }
+  }
+
+  .react-calendar__navigation__label{
+    border: none;
+    font-family: 'PeoplefirstILTTF', sans-serif;
+    background: transparent;
+
+    &:hover {
+      cursor: pointer;
+      color: rgba(4, 50, 231, 0.67);
+    }
+  }
+  
+  abbr{
+    font-family: 'PeoplefirstILTTF', sans-serif;
+    text-decoration: none;
+  }
+  
+  .react-calendar__navigation__arrow{
+    border:none;
+    background: transparent;
+
+    &:hover {
+      cursor: pointer;
+      color: rgb(157, 172, 233);
     }
   }
 
   //선택된 날짜 스타일
   .react-calendar__tile--active {
+    
   }
 `
 const SelectedDateContainer = styled.div`
   margin-top: 20px;
   font-size: 1.2rem;
-`
-
-const SelectedDateText = styled.p`
-  font-weight: bold;
-  color: #333;
 `
 
 /*FOOTER*/
