@@ -1,21 +1,19 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from './firebaseConfig'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../firebaseConfig'
 
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
   const navigate = useNavigate(); //네비게이터 생성
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('')
-    setLoading(true)
 
     //유효성 검사
     if (!email || !password) {
@@ -24,14 +22,12 @@ const Login = () => {
     }
 
     try{
-      await createUserWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       alert('로그인 성공')
       navigate('/calendar'); //로그인 성공 후 calender 화면으로 이동
     } catch(err){
       console.error('Login failed:', err)
       setError(err.response?.data?.message || 'Login failed. Please try again.')
-    }finally{
-      setLoading(false)
     }
   }
 
