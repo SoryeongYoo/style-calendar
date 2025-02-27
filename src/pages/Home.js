@@ -11,7 +11,8 @@ const Home = () => {
         <Title to="/">Style Calendar</Title>
         {/* Button */}
         <Button>
-          <StyledLink to="/login">login/join</StyledLink>
+          <StyledLink to="/login">login</StyledLink>
+          <StyledLink to="/join">join</StyledLink>
         </Button>
         <Description>Plan Your Outfits Effortlessly !</Description>
       </HomeHeader>
@@ -33,6 +34,7 @@ const Home = () => {
 export default Home
 
 const HomeContainer = styled.body`
+  position:relative;
   background-image: url('/images/homebackground.jpg');
 `
 
@@ -57,14 +59,21 @@ const Title = styled(Link)`
   position: absolute; 
   left:50%;
   transform: translate(-50%);
+  z-index:1;
 `
 
 const Button = styled.div`
   position: absolute;
   font-size: 16px;
-  left:1110px;
-  top: 53px;
+  width: 1200px;
+  padding: 0 20px 10px 20px;
+  box-sizing: border-box;
   margin: 0;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: right;
+  bottom: 0;
 `
 
 const StyledLink = styled(Link)`
@@ -78,19 +87,28 @@ const StyledLink = styled(Link)`
 `
 
 const Description = styled.p`
+  position:absolute;
   font-family: 'Jacques Francois', sans-serif;
   color: #3a3a3a;
   font-size: 16px;
-  position:absolute;
+  box-sizing: border-box;
   left:50%;
-  top:53px;
   transform: translate(-50%);
+  padding: 0 0 10px 0;
+  display: flex;
+  justify-content: center;
   margin:0;
+  bottom: 0;
 `
 
 // BODY 
 const HomeBody = styled.div`
-
+  position: absolute;
+  width: 1200px;
+  height: 769px;
+  top: 87px;
+  left: 50%;
+  transform: translate(-50%);
 `
 // FOOTER
 const HomeFooter = styled.div`
